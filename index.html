@@ -1,0 +1,901 @@
+index.html
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phan Quang Nhật — Student & Developer Portfolio</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="https://12a10.knotree.site/images/89841c32-0791-4eeb-aa29-b1787b3bb9f5.webp">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              cyan: '#06b6d4',
+              violet: '#8b5cf6'
+            }
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+            'spin-slow': 'spin 12s linear infinite',
+            'shimmer': 'shimmer 2.5s infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+              '50%': { opacity: '0.8', transform: 'scale(1.08)' },
+            },
+            shimmer: {
+              '100%': { transform: 'translateX(100%)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Styles for Ambient Glassmorphism & Micro-animations -->
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 5px;
+      border: 2px solid #090d16;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #334155;
+    }
+
+    /* Glassmorphism Styles */
+    .glass-card {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(99, 102, 241, 0.35);
+      box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.15);
+    }
+
+    .glass-nav {
+      background: rgba(9, 13, 22, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Glow text effects */
+    .text-glow {
+      text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 50%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .gradient-text-alt {
+      background: linear-gradient(135deg, #c084fc 0%, #a855f7 50%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Grid pattern background */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+  </style>
+</head>
+
+<body class="bg-[#070a11] text-slate-100 font-sans selection:bg-indigo-500 selection:text-white relative overflow-x-hidden min-h-screen">
+
+  <!-- Ambient Light Blobs -->
+  <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none animate-pulse-glow z-0"></div>
+  <div class="fixed top-[40%] right-[-10%] w-[600px] h-[600px] bg-cyan-600/15 rounded-full blur-[160px] pointer-events-none animate-pulse-glow z-0" style="animation-delay: 2s;"></div>
+  <div class="fixed bottom-[-10%] left-[20%] w-[550px] h-[550px] bg-purple-600/15 rounded-full blur-[150px] pointer-events-none animate-pulse-glow z-0" style="animation-delay: 4s;"></div>
+
+  <!-- Background Grid Mesh -->
+  <div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-400 p-[1px] transition-transform duration-300 group-hover:scale-105">
+          <div class="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center font-extrabold text-indigo-400 text-lg tracking-wider">
+            PQN
+          </div>
+        </div>
+        <span class="font-bold text-xl tracking-tight text-white group-hover:text-indigo-300 transition-colors">
+          Phan Quang Nhật<span class="text-indigo-500">.</span>
+        </span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-900/80 p-1.5 rounded-full border border-slate-800/80 backdrop-blur-md">
+        <a href="#about" class="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-full transition-all">Giới thiệu</a>
+        <a href="#skills" class="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-full transition-all">Kỹ năng</a>
+        <a href="#projects" class="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-full transition-all">Dự án</a>
+        <a href="#contact" class="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 rounded-full transition-all">Liên hệ</a>
+      </nav>
+
+      <!-- Control Utility Buttons -->
+      <div class="flex items-center gap-3">
+        <!-- Sound Effect Toggle -->
+        <button id="soundToggle" class="w-10 h-10 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-400 hover:text-indigo-400 hover:border-slate-700 flex items-center justify-center transition-all" title="Bật/Tắt Âm thanh">
+          <i class="fa-solid fa-volume-xmark text-sm" id="soundIcon"></i>
+        </button>
+
+        <!-- High-Five CTA Quick Button -->
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/25 transition-all duration-300 hover:shadow-indigo-600/40 hover:-translate-y-0.5 active:translate-y-0">
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+          <span>Kết nối ngay</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobileMenuBtn" class="md:hidden w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 flex items-center justify-center focus:outline-none">
+          <i class="fa-solid fa-bars text-lg" id="mobileMenuIcon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobileMenu" class="hidden md:hidden bg-slate-950/95 border-b border-slate-800/80 px-6 py-5 transition-all">
+      <div class="flex flex-col gap-4">
+        <a href="#about" class="mobile-nav-link text-base font-medium text-slate-300 hover:text-indigo-400 flex items-center gap-3">
+          <i class="fa-solid fa-user-astronaut text-indigo-500 w-5"></i> Giới thiệu
+        </a>
+        <a href="#skills" class="mobile-nav-link text-base font-medium text-slate-300 hover:text-indigo-400 flex items-center gap-3">
+          <i class="fa-solid fa-code text-cyan-500 w-5"></i> Kỹ năng
+        </a>
+        <a href="#projects" class="mobile-nav-link text-base font-medium text-slate-300 hover:text-indigo-400 flex items-center gap-3">
+          <i class="fa-solid fa-laptop-code text-purple-500 w-5"></i> Dự án
+        </a>
+        <a href="#contact" class="mobile-nav-link text-base font-medium text-slate-300 hover:text-indigo-400 flex items-center gap-3">
+          <i class="fa-solid fa-envelope text-pink-500 w-5"></i> Liên hệ
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-36 sm:pt-44 pb-20 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      
+      <!-- Hero Text Column -->
+      <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+        
+        <!-- Status Badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs sm:text-sm font-semibold tracking-wide backdrop-blur-md">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+          </span>
+          Học sinh Khối 12 • THPT Trần Phú (TP.HCM)
+        </div>
+
+        <!-- Main Heading -->
+        <div class="space-y-3">
+          <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
+            Xin chào, mình là <br class="hidden sm:inline" />
+            <span class="gradient-text text-glow">Phan Quang Nhật</span>
+          </h1>
+          <p class="text-xl sm:text-2xl font-semibold text-slate-300 font-sans tracking-tight">
+            Học sinh Lớp <span class="text-indigo-400 font-bold">12A10</span> <span class="text-slate-600">|</span> <span class="gradient-text-alt">Web Developer & Tech Enthusiast</span>
+          </p>
+        </div>
+
+        <!-- Description Subtitle -->
+        <p class="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+          Đam mê xây dựng các giao diện web hiện đại, mượt mà và trực quan. Luôn chủ động tìm tòi công nghệ mới, rèn luyện tư duy lập trình và định hướng phát triển sự nghiệp trong ngành Công nghệ Thông tin.
+        </p>
+
+        <!-- CTA Action Buttons -->
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+          <a href="#projects" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-bold text-base shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-3 transition-all duration-300 hover:scale-[1.02] active:scale-95">
+            <span>Khám phá Dự án</span>
+            <i class="fa-solid fa-arrow-right-long text-sm"></i>
+          </a>
+
+          <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-200 font-semibold text-base backdrop-blur-md flex items-center justify-center gap-3 transition-all duration-300 hover:border-slate-600 hover:scale-[1.02] active:scale-95">
+            <i class="fa-regular fa-comments text-indigo-400"></i>
+            <span>Liên hệ trực tiếp</span>
+          </a>
+        </div>
+
+        <!-- Quick Info Pills -->
+        <div class="pt-6 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-slate-400 border-t border-slate-800/80">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-location-dot text-indigo-400"></i>
+            <span>TP. Hồ Chí Minh, Việt Nam</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap text-purple-400"></i>
+            <span>THPT Trần Phú</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-laptop-code text-cyan-400"></i>
+            <span>Frontend Enthusiast</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Hero Avatar / Graphic Column -->
+      <div class="lg:col-span-5 flex justify-center relative">
+        
+        <!-- Rotating Ambient Glow Border -->
+        <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+          <div class="absolute -inset-4 bg-gradient-to-tr from-indigo-600 via-purple-600 to-cyan-400 rounded-full blur-2xl opacity-60 animate-pulse-glow"></div>
+          
+          <!-- Outer Decorative Ring -->
+          <div class="absolute -inset-2 rounded-full border border-indigo-500/30 border-dashed animate-spin-slow"></div>
+
+          <!-- Main Profile Avatar Image -->
+          <div class="relative w-full h-full rounded-full p-2 bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden group">
+            <img 
+              src="https://12a10.knotree.site/images/89841c32-0791-4eeb-aa29-b1787b3bb9f5.webp" 
+              alt="Phan Quang Nhật"
+              loading="eager"
+              onerror="this.onerror=null; this.src='https://placehold.co/400x400/1e1b4b/ffffff?text=Quang+Nhat';"
+              class="w-full h-full rounded-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+
+          <!-- Floating Badge 1: Class 12A10 -->
+          <div class="absolute -bottom-2 -left-4 sm:left-0 bg-slate-900/90 border border-slate-700/80 backdrop-blur-xl p-3 px-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-float">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
+              <i class="fa-solid fa-users text-lg"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Tập thể</p>
+              <p class="text-sm font-bold text-white">Lớp 12A10</p>
+            </div>
+          </div>
+
+          <!-- Floating Badge 2: Tech Stack Indicator -->
+          <div class="absolute top-4 -right-4 sm:right-0 bg-slate-900/90 border border-slate-700/80 backdrop-blur-xl p-3 px-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-float" style="animation-delay: 1.5s;">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center">
+              <i class="fa-solid fa-code text-lg"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Đam mê</p>
+              <p class="text-sm font-bold text-white">Frontend Dev</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+      <h2 class="text-xs sm:text-sm font-bold text-indigo-400 tracking-widest uppercase">Hồ sơ cá nhân</h2>
+      <p class="text-3xl sm:text-4xl font-extrabold text-white">Hành trình học tập & Đam mê</p>
+      <div class="w-16 h-1 bg-gradient-to-r from-indigo-500 to-cyan-400 mx-auto rounded-full"></div>
+    </div>
+
+    <!-- About Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+      
+      <!-- Story Bio Card -->
+      <div class="lg:col-span-7 glass-card rounded-3xl p-8 sm:p-10 flex flex-col justify-between space-y-6">
+        <div class="space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-xl font-bold">
+            <i class="fa-solid fa-user-astronaut"></i>
+          </div>
+          <h3 class="text-2xl font-bold text-white">Về bản thân mình</h3>
+          <p class="text-slate-300 leading-relaxed font-normal text-base">
+            Mình hiện đang là học sinh lớp <strong class="text-indigo-400">12A10 trường THPT Trần Phú</strong> tại TP. Hồ Chí Minh. Bên cạnh việc hoàn thành chương trình học tập chính khóa, mình dành phần lớn thời gian rảnh để tự học lập trình web, tìm hiểu về UI/UX và khám phá các công nghệ sáng tạo.
+          </p>
+          <p class="text-slate-400 leading-relaxed text-base">
+            Phương châm học tập của mình là <em class="text-slate-200">"Học đi đôi với hành"</em>. Mình thích biến các ý tưởng giao diện trên bản vẽ thành những dòng code chạy thực tế, mang lại trải nghiệm người dùng mượt mà và chỉn chu nhất.
+          </p>
+        </div>
+
+        <!-- Personal Highlights List -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-800">
+          <div class="flex items-center gap-3 text-slate-300 text-sm">
+            <i class="fa-solid fa-circle-check text-indigo-400"></i>
+            <span>Tư duy logic & giải quyết vấn đề</span>
+          </div>
+          <div class="flex items-center gap-3 text-slate-300 text-sm">
+            <i class="fa-solid fa-circle-check text-cyan-400"></i>
+            <span>Thiết kế giao diện người dùng UI/UX</span>
+          </div>
+          <div class="flex items-center gap-3 text-slate-300 text-sm">
+            <i class="fa-solid fa-circle-check text-purple-400"></i>
+            <span>Khả năng tự học & nghiên cứu tốt</span>
+          </div>
+          <div class="flex items-center gap-3 text-slate-300 text-sm">
+            <i class="fa-solid fa-circle-check text-pink-400"></i>
+            <span>Thích làm việc nhóm & chia sẻ</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat Highlight Cards -->
+      <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+        
+        <!-- Stat Card 1 -->
+        <div class="glass-card rounded-2xl p-6 flex items-center gap-5 transition-transform duration-300 hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center text-2xl shrink-0">
+            <i class="fa-solid fa-school"></i>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Trường học</p>
+            <h4 class="text-xl font-bold text-white mt-0.5">THPT Trần Phú</h4>
+            <p class="text-xs text-slate-400 mt-1">TP. Hồ Chí Minh</p>
+          </div>
+        </div>
+
+        <!-- Stat Card 2 -->
+        <div class="glass-card rounded-2xl p-6 flex items-center gap-5 transition-transform duration-300 hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center text-2xl shrink-0">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Lớp học</p>
+            <h4 class="text-xl font-bold text-white mt-0.5">Lớp 12A10</h4>
+            <p class="text-xs text-slate-400 mt-1">Niên khóa 2023 - 2026</p>
+          </div>
+        </div>
+
+        <!-- Stat Card 3 -->
+        <div class="glass-card rounded-2xl p-6 flex items-center gap-5 transition-transform duration-300 hover:-translate-y-1">
+          <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center text-2xl shrink-0">
+            <i class="fa-solid fa-fire"></i>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Mục tiêu</p>
+            <h4 class="text-xl font-bold text-white mt-0.5">100% Nhiệt huyết</h4>
+            <p class="text-xs text-slate-400 mt-1">Sẵn sàng chinh phục kỳ thi & đam mê</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Skills & Tech Stack Section -->
+  <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+      <h2 class="text-xs sm:text-sm font-bold text-cyan-400 tracking-widest uppercase">Năng lực kĩ thuật</h2>
+      <p class="text-3xl sm:text-4xl font-extrabold text-white">Kỹ năng & Công nghệ</p>
+      <div class="w-16 h-1 bg-gradient-to-r from-cyan-400 to-indigo-500 mx-auto rounded-full"></div>
+    </div>
+
+    <!-- Skill Progress Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Skill 1: HTML5 & CSS3 -->
+      <div class="glass-card rounded-2xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center text-lg font-bold">
+              <i class="fa-brands fa-html5"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-base">HTML5 & CSS3</h3>
+              <p class="text-xs text-slate-400">Web Markup & Styling</p>
+            </div>
+          </div>
+          <span class="text-sm font-extrabold text-indigo-400">90%</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-orange-500 to-indigo-500 rounded-full" style="width: 90%;"></div>
+        </div>
+      </div>
+
+      <!-- Skill 2: JavaScript -->
+      <div class="glass-card rounded-2xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-yellow-500/10 text-yellow-400 flex items-center justify-center text-lg font-bold">
+              <i class="fa-brands fa-js"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-base">JavaScript (ES6+)</h3>
+              <p class="text-xs text-slate-400">Logic & Interactive Web</p>
+            </div>
+          </div>
+          <span class="text-sm font-extrabold text-indigo-400">80%</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full" style="width: 80%;"></div>
+        </div>
+      </div>
+
+      <!-- Skill 3: Tailwind CSS -->
+      <div class="glass-card rounded-2xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-wind"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-base">Tailwind CSS</h3>
+              <p class="text-xs text-slate-400">Utility-First CSS Framework</p>
+            </div>
+          </div>
+          <span class="text-sm font-extrabold text-indigo-400">85%</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-cyan-400 to-indigo-500 rounded-full" style="width: 85%;"></div>
+        </div>
+      </div>
+
+      <!-- Skill 4: UI/UX Design -->
+      <div class="glass-card rounded-2xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-palette"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-base">Thiết kế UI/UX</h3>
+              <p class="text-xs text-slate-400">Bố cục & Trải nghiệm người dùng</p>
+            </div>
+          </div>
+          <span class="text-sm font-extrabold text-indigo-400">75%</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" style="width: 75%;"></div>
+        </div>
+      </div>
+
+      <!-- Skill 5: Git & GitHub -->
+      <div class="glass-card rounded-2xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-slate-700/30 text-slate-200 flex items-center justify-center text-lg font-bold">
+              <i class="fa-brands fa-github"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-base">Git & Quản lý Code</h3>
+              <p class="text-xs text-slate-400">Version Control Systems</p>
+            </div>
+          </div>
+          <span class="text-sm font-extrabold text-indigo-400">70%</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-slate-400 to-indigo-500 rounded-full" style="width: 70%;"></div>
+        </div>
+      </div>
+
+      <!-- Skill 6: Problem Solving -->
+      <div class="glass-card rounded-2xl p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-lg font-bold">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-white text-base">Tư duy Logic</h3>
+              <p class="text-xs text-slate-400">Giải thuật & Tối ưu hóa</p>
+            </div>
+          </div>
+          <span class="text-sm font-extrabold text-indigo-400">85%</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-emerald-400 to-cyan-500 rounded-full" style="width: 85%;"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Projects & Highlights Section -->
+  <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+      <h2 class="text-xs sm:text-sm font-bold text-purple-400 tracking-widest uppercase">Sản phẩm nổi bật</h2>
+      <p class="text-3xl sm:text-4xl font-extrabold text-white">Dự án đã thực hiện</p>
+      <div class="w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full"></div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Project Card 1 -->
+      <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:-translate-y-2">
+        <div>
+          <!-- Card Image Header -->
+          <div class="relative h-48 bg-gradient-to-br from-indigo-900/60 to-purple-900/60 overflow-hidden flex items-center justify-center">
+            <img 
+              src="https://12a10.knotree.site/images/89841c32-0791-4eeb-aa29-b1787b3bb9f5.webp" 
+              alt="Personal Portfolio"
+              class="w-full h-full object-cover opacity-60 group-hover:opacity-80 group-hover:scale-105 transition-all duration-500"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-xs font-bold backdrop-blur-md">
+              Featured Portfolio
+            </span>
+          </div>
+
+          <!-- Content Details -->
+          <div class="p-6 space-y-3">
+            <h3 class="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors">
+              Trang cá nhân Phan Quang Nhật
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Website giới thiệu bản thân thiết kế theo phong cách Cyber-Minimalism với giao diện tối, hiệu ứng tương tác mượt mà và tối ưu hóa trải nghiệm người dùng.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card Footer Tech Badges & CTA -->
+        <div class="p-6 pt-0 space-y-4">
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-slate-300">HTML5</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-indigo-300">Tailwind CSS</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-amber-300">JavaScript</span>
+          </div>
+          <a href="#" class="inline-flex items-center gap-2 text-sm font-bold text-indigo-400 hover:text-indigo-300 transition-colors">
+            <span>Đang xem bản xem trước</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Project Card 2 -->
+      <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:-translate-y-2">
+        <div>
+          <!-- Card Image Header -->
+          <div class="relative h-48 bg-gradient-to-br from-cyan-900/60 to-blue-900/60 overflow-hidden flex items-center justify-center">
+            <div class="w-16 h-16 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-3xl font-bold">
+              <i class="fa-solid fa-users-rectangle"></i>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-bold backdrop-blur-md">
+              Class Showcase
+            </span>
+          </div>
+
+          <!-- Content Details -->
+          <div class="p-6 space-y-3">
+            <h3 class="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+              Hệ sinh thái Số Lớp 12A10
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Trang lưu giữ kỷ niệm, hình ảnh tập thể và các thông báo quan trọng dành riêng cho các thành viên lớp 12A10 THPT Trần Phú.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card Footer Tech Badges & CTA -->
+        <div class="p-6 pt-0 space-y-4">
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-slate-300">Web App</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-cyan-300">UI Showcase</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-purple-300">Community</span>
+          </div>
+          <a href="https://12a10.knotree.site" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-cyan-400 hover:text-cyan-300 transition-colors">
+            <span>Truy cập 12a10.knotree.site</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Project Card 3 -->
+      <div class="glass-card rounded-3xl overflow-hidden flex flex-col justify-between group transition-all duration-300 hover:-translate-y-2">
+        <div>
+          <!-- Card Image Header -->
+          <div class="relative h-48 bg-gradient-to-br from-purple-900/60 to-pink-900/60 overflow-hidden flex items-center justify-center">
+            <div class="w-16 h-16 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-3xl font-bold">
+              <i class="fa-solid fa-gamepad"></i>
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-purple-300 text-xs font-bold backdrop-blur-md">
+              Interactive Web App
+            </span>
+          </div>
+
+          <!-- Content Details -->
+          <div class="p-6 space-y-3">
+            <h3 class="text-xl font-bold text-white group-hover:text-purple-400 transition-colors">
+              Mini Web Playground & Tools
+            </h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+              Bộ công cụ nhỏ và các trò chơi tương tác lập trình bằng JavaScript nguyên bản nhằm rèn luyện tư duy thuật toán.
+            </p>
+          </div>
+        </div>
+
+        <!-- Card Footer Tech Badges & CTA -->
+        <div class="p-6 pt-0 space-y-4">
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-yellow-300">Vanilla JS</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-slate-300">CSS Canvas</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-800 text-xs font-medium text-pink-300">Logic Games</span>
+          </div>
+          <span class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500">
+            <i class="fa-solid fa-hourglass-half text-xs"></i> Đang phát triển thêm
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Playground & Contact Section -->
+  <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <!-- High-Five Interactive Corner -->
+      <div class="lg:col-span-5 glass-card rounded-3xl p-8 text-center space-y-6">
+        <div class="w-16 h-16 rounded-full bg-indigo-500/10 text-indigo-400 flex items-center justify-center text-3xl mx-auto">
+          <i class="fa-solid fa-hand-holding-heart"></i>
+        </div>
+        
+        <div class="space-y-2">
+          <h3 class="text-2xl font-bold text-white">Gửi lời chào High-Five!</h3>
+          <p class="text-slate-400 text-sm">
+            Bấm nút bên dưới để thả hiệu ứng pháo hoa và gửi năng lượng tích cực cho Nhật nhé!
+          </p>
+        </div>
+
+        <!-- High-Five Counter Button -->
+        <button id="highFiveBtn" class="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-indigo-500 hover:to-pink-400 text-white font-extrabold text-base shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-3 transition-transform duration-200 active:scale-95">
+          <i class="fa-solid fa-hands-clapping text-xl"></i>
+          <span>Thả High-Five 👋 (<span id="highFiveCount">12A10</span>)</span>
+        </button>
+
+        <!-- Social Contact Badges -->
+        <div class="pt-4 border-t border-slate-800 space-y-3">
+          <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Kênh kết nối khác</p>
+          <div class="flex items-center justify-center gap-3">
+            <a href="https://12a10.knotree.site" target="_blank" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-all" title="Trang lớp 12A10">
+              <i class="fa-solid fa-globe"></i>
+            </a>
+            <a href="mailto:contact@knotree.site" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-all" title="Gửi Email">
+              <i class="fa-solid fa-envelope"></i>
+            </a>
+            <button id="copyLinkBtn" class="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-all" title="Sao chép liên kết trang">
+              <i class="fa-solid fa-share-nodes"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Message Form -->
+      <div class="lg:col-span-7 glass-card rounded-3xl p-8 sm:p-10 space-y-6">
+        <div class="space-y-2">
+          <h3 class="text-2xl font-bold text-white">Để lại lời nhắn</h3>
+          <p class="text-slate-400 text-sm">
+            Bạn có góp ý hoặc muốn kết nối? Hãy điền vào biểu mẫu nhanh dưới đây!
+          </p>
+        </div>
+
+        <form id="contactForm" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Tên của bạn</label>
+              <input type="text" required placeholder="Nguyễn Văn A" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors text-sm" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Email / SĐT</label>
+              <input type="text" required placeholder="email@domain.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors text-sm" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-300 uppercase mb-2">Nội dung tin nhắn</label>
+            <textarea rows="4" required placeholder="Chào Nhật, mình muốn gửi lời chúc học tốt..." class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors text-sm resize-none"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2 transition-all active:scale-95">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Gửi tin nhắn ngay</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Toast Modal -->
+  <div id="toast" class="fixed bottom-6 right-6 translate-y-20 opacity-0 pointer-events-none transition-all duration-300 bg-slate-900 text-white border border-slate-700 px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 z-50 backdrop-blur-xl">
+    <div id="toastIcon" class="text-emerald-400">
+      <i class="fa-solid fa-circle-check text-lg"></i>
+    </div>
+    <span id="toastMessage" class="text-sm font-medium">Đã thao tác thành công!</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/80 py-8 px-4 text-center text-xs text-slate-500 relative z-10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© <span id="currentYear"></span> Phan Quang Nhật • THPT Trần Phú - Lớp 12A10</p>
+      <p class="flex items-center gap-1.5">
+        <span>Xây dựng bằng đam mê &</span>
+        <i class="fa-solid fa-heart text-pink-500"></i>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Web Audio Synth & Interactivity Scripts -->
+  <script>
+    // Set Current Dynamic Year
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Sound FX Web Audio API Engine
+    let soundEnabled = false;
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playBeep(freq = 440, type = 'sine', duration = 0.1) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new AudioContext();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    // Toggle Sound Button
+    const soundToggle = document.getElementById('soundToggle');
+    const soundIcon = document.getElementById('soundIcon');
+
+    soundToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      if (soundEnabled) {
+        soundIcon.className = 'fa-solid fa-volume-high text-indigo-400 text-sm';
+        showToast('Đã BẬT hiệu ứng âm thanh 🔊');
+        playBeep(600, 'sine', 0.15);
+      } else {
+        soundIcon.className = 'fa-solid fa-volume-xmark text-slate-400 text-sm';
+        showToast('Đã TẮT hiệu ứng âm thanh 🔇');
+      }
+    });
+
+    // Mobile Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuIcon = document.getElementById('mobileMenuIcon');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      if (mobileMenu.classList.contains('hidden')) {
+        mobileMenuIcon.className = 'fa-solid fa-bars text-lg';
+      } else {
+        mobileMenuIcon.className = 'fa-solid fa-xmark text-lg';
+      }
+    });
+
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenuIcon.className = 'fa-solid fa-bars text-lg';
+      });
+    });
+
+    // Toast Notification System
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+
+    function showToast(msg) {
+      toastMessage.textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 3000);
+    }
+
+    // High-Five Button Interaction with Confetti Animation
+    let count = 100;
+    const highFiveBtn = document.getElementById('highFiveBtn');
+    const highFiveCount = document.getElementById('highFiveCount');
+
+    highFiveBtn.addEventListener('click', () => {
+      count++;
+      highFiveCount.textContent = count;
+      playBeep(800, 'triangle', 0.2);
+
+      // Trigger Canvas Confetti
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.8 },
+          colors: ['#6366f1', '#a855f7', '#06b6d4', '#ec4899']
+        });
+      }
+
+      showToast(`Cảm ơn bạn! Lời chào thứ #${count} đã được ghi nhận 🎉`);
+    });
+
+    // Copy Link Event
+    document.getElementById('copyLinkBtn').addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      const tempInput = document.createElement('input');
+      document.body.appendChild(tempInput);
+      tempInput.value = pageUrl;
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      playBeep(520, 'sine', 0.1);
+      showToast('Đã sao chép liên kết trang cá nhân!');
+    });
+
+    // Contact Form Submission Simulation
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      playBeep(700, 'sine', 0.25);
+      showToast('Cảm ơn bạn đã nhắn! Nhật sẽ phản hồi sớm nhất nhé ✨');
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
